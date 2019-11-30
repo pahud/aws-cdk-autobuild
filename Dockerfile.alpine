@@ -1,0 +1,19 @@
+FROM jsii/superchain as builder
+
+WORKDIR /app
+
+ARG BUILD_ARGS
+
+COPY . .
+
+RUN ./build.sh ${BUILD_ARGS} && ./link-all.sh
+
+FROM node:lts-alpine as runtime
+
+WORKDIR /app
+
+COPY --from=builder /app/node_modules/.bin /usr/local/bin/
+COPY --from=builder /app /app/
+
+ENTRYPOINT ['/usr/local/bin/cdk']
+
