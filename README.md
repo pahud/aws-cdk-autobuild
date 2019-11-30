@@ -39,7 +39,7 @@ check the CDK script sample [here](https://github.com/pahud/cdk-samples/blob/500
 
 # pahud/aws-cdk-basic-runtime
 
-This image aims to provide a minimal CDK runtime withi node LTS and alpine linux while provides complete `node_modules` support.
+This image aims to provide a minimal CDK runtime with node LTS and alpine linux while provides complete `node_modules` support.([compressed image size ~170MB](https://hub.docker.com/r/pahud/aws-cdk-basic-runtime/tags))
 
 ```bash
 # build the runtime image
