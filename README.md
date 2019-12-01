@@ -34,7 +34,7 @@ Check the **CONTRIBUTING.md** from `aws/aws-cdk` for more details about how to u
 https://github.com/aws/aws-cdk/blob/master/CONTRIBUTING.md#full-docker-build
 
 ## build your own autobuild pipeline and docker image
-check the CDK script sample [here](https://github.com/pahud/cdk-samples/blob/5008183a4a73b6380969eb5147c0a46e474fda91/typescript/packages/aws-codebuild-patterns/samples/all.ts#L215-L275) to generate your own autobuild with CodeBuild
+check the CDK script sample [here](https://github.com/pahud/cdk-samples/blob/26f5c1c201e0a6818a23ce8cf621eafc4048072a/typescript/packages/aws-codebuild-patterns/samples/all.ts#L215-L282) to generate your own autobuild with CodeBuild
 
 
 # pahud/aws-cdk-runtime
