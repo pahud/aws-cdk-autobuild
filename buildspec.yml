@@ -1,0 +1,27 @@
+{
+  "version": "0.2",
+  "phases": {
+    "install": {
+      "runtime-versions": {
+        "docker": 18
+      }
+    },
+    "pre_build": {
+      "commands": [
+        "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+      ]
+    },
+    "build": {
+      "commands": [
+        "echo \"Building image now\"",
+        "docker build -t pahud/aws-cdk-autobuild --build-arg BUILD_ARGS=\"--skip-test\" .",
+        "docker push pahud/aws-cdk-autobuild:latest"
+      ]
+    },
+    "post_build": {
+      "commands": [
+        "aws --region ap-northeast-1 sns publish --topic-arn $SNS_TOPIC_ARN --message \"[OK] awscdk-docker-autobuild autobuild completed\""
+      ]
+    }
+  }
+}
