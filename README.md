@@ -33,17 +33,50 @@ Check the **CONTRIBUTING.md** from `aws/aws-cdk` for more details about how to u
 
 https://github.com/aws/aws-cdk/blob/master/CONTRIBUTING.md#full-docker-build
 
-## build your own autobuild pipeline and docker image
-check the CDK script sample [here](https://github.com/pahud/cdk-samples/blob/26f5c1c201e0a6818a23ce8cf621eafc4048072a/typescript/packages/aws-codebuild-patterns/samples/all.ts#L215-L282) to generate your own autobuild with CodeBuild
+## CDK development in the container
 
-
-# pahud/aws-cdk-runtime
-
-This image aims to provide a minimal CDK runtime with node LTS and alpine linux while provides complete `node_modules` support.([compressed image size ~170MB](https://hub.docker.com/r/pahud/aws-cdk-runtime/tags))
+As `pahud/aws-cdk-autobuild:latest` auto builds itself everyday from the `aws/aws-cdk` master branch, you probably would love to pull the image to the local, spinning up a docker and develop in the container with your favorite IDE such as VSCode or Cloud9. The following steps is my current practice.
 
 ```bash
-# build the runtime image for typescript
-docker build -t pahud/aws-cdk-runtime:node-lts --build-arg BUILD_ARGS='--skip-test' . -f Dockerfile.runtime
+# update the docker image
+docker pull pahud/aws-cdk-autobuild:latest
+# run a container
+container=$(docker run -d --entrypoint='' pahud/aws-cdk-autobuild:latest false)
+# copy /app from the container to local
+docker cp ${container}:/app ./
+# delete the container
+docker rm -f ${container}
+
+# let's run another container and mount the local ./app into the container:/app
+# so we can develop with our favorite IDE outsides the container while we still can build or test it in the container
+# enter the shell of the container
+docker run -ti --entrypoint='' \
+-v $PWD/app:/app \
+-v $HOME/.aws:/root/.aws \
+-e PS1='\[\033[01;32m\]$(whoami)(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $' \
+pahud/aws-cdk-autobuild bash
+
+
+# some prerequisities in the container
+export PATH=$PATH:/app/node_modules/.bin:/app/packages/cdk/node_modules/.bin
+npm i -D lerna
+npm i -g aws-cdk
+
+
+# runs an npm script via lerna for a the current module
+alias lr='/app/node_modules/.bin/lerna run --stream --scope $(node -p "require(\"./package.json\").name")'
+
+# runs "yarn build" (build + test) for the current module
+alias lb='lr build'
+alias lt='lr test'
+
+# runs "yarn watch" for the current module (recommended to run in a separate terminal session):
+alias lw='lr watch'
+
+# we still need to run yarn install
+yarn install
+```
+
 ```
 
 
