@@ -24,7 +24,6 @@ docker rm -f ${container}
 docker run -ti --entrypoint='' \
 -v $PWD/app:/app \
 -v $HOME/.aws:/root/.aws \
--v $HOME/.ssh:/root/.ssh \
 -e PS1='\[\033[01;32m\]$(whoami)(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $' \
 pahud/aws-cdk-autobuild bash
 
@@ -47,7 +46,10 @@ alias lw='lr watch'
 
 # we still need to run yarn install
 yarn install
-```
+
+# (optional) specify the git credential helper cache for git over https protocol
+git config --global credential.helper cache
+git config --global credential.helper 'cache --timeout=864000'
 
 ```
 
