@@ -22,9 +22,10 @@ docker rm -f ${container}
 # so we can develop with our favorite IDE outsides the container while we still can build or test it in the container
 # enter the shell of the container
 docker run -ti --entrypoint='' \
+--user $(id -u) \
 -v $PWD/app:/app \
 -v $HOME/.aws:/root/.aws \
--e PS1='\[\033[01;32m\]$(whoami)(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $' \
+-e PS1='\[\033[01;32m\]$(id -u)(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $' \
 pahud/aws-cdk-autobuild bash
 
 
