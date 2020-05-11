@@ -4,11 +4,18 @@ WORKDIR /app
 
 RUN npm i --save-dev lerna && npm i -g aws-cdk && yarn install
 
-ENV PS1 '\[\033[01;32m\]$(id -u)(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $'
+ENV USER cdkuser
+
+ENV PS1 '\[\033[01;32m\]${USER}(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $'
+
 ENV HOME /app
 
 COPY lr.alias /tmp/
 
-RUN cat /tmp/lr.alias >> $HOME/.bash_profile
+RUN useradd -ms /bin/bash -u 501 -d /home/cdkuser cdkuser
 
-ENTRYPOINT ''
+RUN cat /tmp/lr.alias >> /home/cdkuser/.bashrc
+
+USER cdkuser
+
+ENTRYPOINT []
