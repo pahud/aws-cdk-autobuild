@@ -4,9 +4,12 @@
 ## latest docker image URI
 [pahud/aws-cdk-autobuild:latest](https://hub.docker.com/repository/docker/pahud/aws-cdk-autobuild)
 
+## with developer build tools(ready for development)
+[pahud/aws-cdk-autobuild:buildtools](https://hub.docker.com/repository/docker/pahud/aws-cdk-autobuild)
+
 ## CDK development in the container
 
-As `pahud/aws-cdk-autobuild:latest` auto builds itself everyday from the `aws/aws-cdk` master branch, you probably would love to pull the image to the local, spinning up a docker and develop in the container with your favorite IDE such as VSCode or Cloud9. The following steps is my current practice.
+As `pahud/aws-cdk-autobuild:buildtools` auto builds itself everyday from the `aws/aws-cdk` master branch, you probably would love to pull the image to the local, spinning up a docker and develop in the container with your favorite IDE such as VSCode or Cloud9. The following steps is my current practice.
 
 ```bash
 # update the docker image
