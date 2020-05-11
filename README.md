@@ -10,9 +10,10 @@ As `pahud/aws-cdk-autobuild:latest` auto builds itself everyday from the `aws/aw
 
 ```bash
 # update the docker image
-docker pull pahud/aws-cdk-autobuild:latest
+image='pahud/aws-cdk-autobuild:buildtools'
+docker pull $image
 # run a container
-container=$(docker run -d --entrypoint='' pahud/aws-cdk-autobuild:latest false)
+container=$(docker run -d --entrypoint='' $image false)
 # copy /app from the container to local
 docker cp ${container}:/app ./
 # delete the container
@@ -24,29 +25,13 @@ docker rm -f ${container}
 docker run -ti --entrypoint='' \
 --user $(id -u) \
 -v $PWD/app:/app \
--v $HOME/.aws:/root/.aws \
+-v $HOME/.aws:/app/.aws \
 -e PS1='\[\033[01;32m\]$(id -u)(cdk-docker)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $' \
-pahud/aws-cdk-autobuild bash
+$image bash
 
-
-# some prerequisities in the container
-export PATH=$PATH:/app/node_modules/.bin:/app/packages/cdk/node_modules/.bin
-npm i -D lerna
-npm i -g aws-cdk
-
-
-# runs an npm script via lerna for a the current module
-alias lr='/app/node_modules/.bin/lerna run --stream --scope $(node -p "require(\"./package.json\").name")'
-
-# runs "yarn build" (build + test) for the current module
-alias lb='lr build'
-alias lt='lr test'
-
-# runs "yarn watch" for the current module (recommended to run in a separate terminal session):
-alias lw='lr watch'
-
-# we still need to run yarn install
-yarn install
+# in the container shell
+# source the aliases
+source /tmp/lr.alias
 
 # (optional) specify the git credential helper cache for git over https protocol
 git config --global credential.helper cache
