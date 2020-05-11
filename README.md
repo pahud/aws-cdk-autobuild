@@ -2,14 +2,14 @@
 **aws-cdk-autobuild** is an autobuild docker image generated and pushed to docker hub on a hourly basis with [@pahud/aws-codebuild-patterns](https://www.npmjs.com/package/@pahud/aws-codebuild-patterns) running in **AWS CodeBuild**. Behind the scene a codebuild project just git clone the master branch from `aws/aws-cdk` and docker build into `pahud/aws-cdk-autobuild:latest` based on the [Dockerfile](https://github.com/aws/aws-cdk/blob/master/Dockerfile) provided in aws/aws-cdk. Check the [buildspec.yml](./buildspec.yml) file for the CodeBuild project in use.
 
 ## latest docker image URI
-[pahud/aws-cdk-autobuild:latest](https://hub.docker.com/repository/docker/pahud/aws-cdk-autobuild)
+[pahud/aws-cdk-autobuild:latest](https://hub.docker.com/repository/docker/pahud/aws-cdk-autobuild/tags?page=1)
 
 ## with developer build tools(ready for development)
-[pahud/aws-cdk-autobuild:buildtools](https://hub.docker.com/repository/docker/pahud/aws-cdk-autobuild)
+[pahud/aws-cdk-autobuild:buildtools](https://hub.docker.com/repository/docker/pahud/aws-cdk-autobuild/tags?page=1)
 
 ## CDK development in the container
 
-As `pahud/aws-cdk-autobuild:buildtools` auto builds itself everyday from the `aws/aws-cdk` master branch, you probably would love to pull the image to the local, spinning up a docker and develop in the container with your favorite IDE such as VSCode or Cloud9. The following steps is my current practice.
+My current practice in the following steps for daily CDK development in the container running in Cloud9:
 
 ```bash
 # update the docker image
