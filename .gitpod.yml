@@ -1,4 +1,5 @@
-image: pahud/aws-cdk-autobuild:gitopd
+image: gitpod/workspace-full
+
 tasks:
   - init: ls
 
