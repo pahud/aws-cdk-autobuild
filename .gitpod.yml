@@ -1,4 +1,4 @@
-image: pahud/aws-cdk-autobuild:buildtools
+image: pahud/aws-cdk-autobuild:gitopd
 tasks:
   - init: ls
 
