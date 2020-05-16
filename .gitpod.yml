@@ -1,6 +1,6 @@
 image: pahud/aws-cdk-autobuild:buildtools
 tasks:
-  - init: cp -a /app ./
+  - init: ls
 
 vscode:
   extensions:
