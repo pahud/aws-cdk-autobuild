@@ -1,0 +1,6 @@
+image: pahud/aws-cdk-autobuild:buildtools
+tasks:
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint@2.1.5:9Wg0Glx/TwD8ElFBg+FKcQ==
