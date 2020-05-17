@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full
+FROM pahud/aws-cdk-autobuild:buildtools
 
-# Install custom tools, runtime, etc.
-RUN brew install fzf
+
+ENV foo bar
