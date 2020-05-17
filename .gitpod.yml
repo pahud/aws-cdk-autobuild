@@ -1,5 +1,12 @@
-image:
-  file: Dockerfile.gitpod
+ports:
+  - port: 8080
+checkoutLocation: "src/github.com/demo-apps/go-gin-app"
+workspaceLocation: "."
 tasks:
-  - command: |
-    echo "pahud" > /tmp/pahud
+  - init: >
+      cd /workspace/src/github.com/demo-apps/go-gin-app &&
+      go get -v ./... &&
+      go build -o app
+    command: >
+      cd /workspace/src/github.com/demo-apps/go-gin-app &&
+      ./app
