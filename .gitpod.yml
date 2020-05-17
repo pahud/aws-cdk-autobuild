@@ -1,5 +1,7 @@
-image:
-  file: Dockerfile.awscdk
+image: jsii/superchain
 tasks:
-  - init: yarn
-    command: ./scripts/code.sh
+  - init: git clone https://github.com/aws/aws-cdk.git && cd aws-cdk && ./build.sh --skip-test --no-bail
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint@2.1.5:9Wg0Glx/TwD8ElFBg+FKcQ==
