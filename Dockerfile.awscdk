@@ -1,11 +1,9 @@
 FROM jsii/superchain
 
+RUN git clone https://github.com/aws/aws-cdk.git ./app
+
 WORKDIR /app
 
 ARG BUILD_ARGS
 
-COPY . .
-
 RUN ./build.sh ${BUILD_ARGS} && ./link-all.sh
-
-ENTRYPOINT ["/app/node_modules/.bin/cdk"]
