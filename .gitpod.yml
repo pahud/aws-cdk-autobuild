@@ -1,12 +1,7 @@
+image:
+  file: Dockerfile.gitpod
 ports:
-  - port: 8080
-checkoutLocation: "src/github.com/demo-apps/go-gin-app"
-workspaceLocation: "."
+  - port: 6080
 tasks:
-  - init: >
-      cd /workspace/src/github.com/demo-apps/go-gin-app &&
-      go get -v ./... &&
-      go build -o app
-    command: >
-      cd /workspace/src/github.com/demo-apps/go-gin-app &&
-      ./app
+  - init: yarn
+    command: ./scripts/code.sh
