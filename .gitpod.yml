@@ -1,7 +1,5 @@
 image:
-  file: Dockerfile.gitpod
-ports:
-  - port: 6080
+  file: Dockerfile.awscdk
 tasks:
   - init: yarn
     command: ./scripts/code.sh
